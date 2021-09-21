@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.javasm.salesupply.mapper.SpChangegoodsMapper">
+
+    <select id="selectGoodsInfo" resultType="com.javasm.salesupply.domain.vo.GoodsInfoVo">
+        select IMEI_number,goods_encode,goods_name,goods_model,goods_color,goods_lowstock,goods_shoprice from gd_imei gi,gd_goods gs
+        <where>
+           gi.gdgt_id=gs.goods_id
+
+            <if test="goodsName != null and goodsName != ''">
+                and gs.goods_name like concat(concat('%',#{goodsName}),'%')
+            </if>
+            and gi.flag=0
+        </where>
+
+    </select>
+
+
+
+</mapper>

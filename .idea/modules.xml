@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/salesupply-master/SaleSupply.iml" filepath="$PROJECT_DIR$/salesupply-master/SaleSupply.iml" />
+      <module fileurl="file://$PROJECT_DIR$/salesupply-master/aftersales/aftersales.iml" filepath="$PROJECT_DIR$/salesupply-master/aftersales/aftersales.iml" />
+      <module fileurl="file://$PROJECT_DIR$/salesupply-master/common/common.iml" filepath="$PROJECT_DIR$/salesupply-master/common/common.iml" />
+      <module fileurl="file://$PROJECT_DIR$/salesupply-master/goods/goods.iml" filepath="$PROJECT_DIR$/salesupply-master/goods/goods.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/master.iml" filepath="$PROJECT_DIR$/.idea/master.iml" />
+      <module fileurl="file://$PROJECT_DIR$/salesupply-master/sales/sales.iml" filepath="$PROJECT_DIR$/salesupply-master/sales/sales.iml" />
+      <module fileurl="file://$PROJECT_DIR$/salesupply-master/start/start.iml" filepath="$PROJECT_DIR$/salesupply-master/start/start.iml" />
+      <module fileurl="file://$PROJECT_DIR$/salesupply-master/stock/stock.iml" filepath="$PROJECT_DIR$/salesupply-master/stock/stock.iml" />
+    </modules>
+  </component>
+</project>

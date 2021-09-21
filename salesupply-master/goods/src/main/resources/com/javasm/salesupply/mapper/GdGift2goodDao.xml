@@ -1,0 +1,176 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.javasm.salesupply.mapper.GdGift2goodDao">
+
+    <resultMap id="BaseResultMap" type="com.javasm.salesupply.domain.entity.GdGift2good">
+        <!--@Table gd_gift2good-->
+        <result property="giftId" column="gift_id" jdbcType="INTEGER"/>
+        <result property="giftSwitchPutwarehouse" column="gift_switch_putwarehouse" jdbcType="VARCHAR"/>
+        <result property="giftSwichTyprice" column="gift_swich_typrice" jdbcType="OTHER"/>
+        <result property="giftApprovaid" column="gift_approvaid" jdbcType="INTEGER"/>
+        <result property="createBy" column="create_by" jdbcType="INTEGER"/>
+        <result property="updateBy" column="update_by" jdbcType="VARCHAR"/>
+        <result property="createTime" column="create_time" jdbcType="TIMESTAMP"/>
+        <result property="updateTime" column="update_time" jdbcType="TIMESTAMP"/>
+        <result property="remark1" column="remark_1" jdbcType="VARCHAR"/>
+        <result property="remark2" column="remark_2" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <!--查询单个-->
+    <select id="queryById" resultMap="BaseResultMap">
+        select gift_id,
+               gift_switch_putwarehouse,
+               gift_swich_typrice,
+               gift_approvaid,
+               create_by,
+               update_by,
+               create_time,
+               update_time,
+               remark_1,
+               remark_2
+        from supplymarketing.gd_gift2good
+        where gift_id = #{giftId}
+    </select>
+
+    <!--查询指定行数据-->
+    <select id="queryAllByLimit" resultMap="BaseResultMap">
+        select gift_id,
+               gift_switch_putwarehouse,
+               gift_swich_typrice,
+               gift_approvaid,
+               create_by,
+               update_by,
+               create_time,
+               update_time,
+               remark_1,
+               remark_2
+        from supplymarketing.gd_gift2good
+        limit #{offset}, #{limit}
+    </select>
+
+    <!--通过实体作为筛选条件查询-->
+    <select id="queryAll" resultMap="BaseResultMap">
+        select
+        gift_id, gift_switch_putwarehouse, gift_swich_typrice, gift_approvaid, create_by, update_by, create_time,
+        update_time, remark_1, remark_2
+        from supplymarketing.gd_gift2good
+        <where>
+            <if test="giftId != null">
+                and gift_id = #{giftId}
+            </if>
+            <if test="giftSwitchPutwarehouse != null and giftSwitchPutwarehouse != ''">
+                and gift_switch_putwarehouse = #{giftSwitchPutwarehouse}
+            </if>
+            <if test="giftSwichTyprice != null">
+                and gift_swich_typrice = #{giftSwichTyprice}
+            </if>
+            <if test="giftApprovaid != null">
+                and gift_approvaid = #{giftApprovaid}
+            </if>
+            <if test="createBy != null">
+                and create_by = #{createBy}
+            </if>
+            <if test="updateBy != null and updateBy != ''">
+                and update_by = #{updateBy}
+            </if>
+            <if test="createTime != null">
+                and create_time = #{createTime}
+            </if>
+            <if test="updateTime != null">
+                and update_time = #{updateTime}
+            </if>
+            <if test="remark1 != null and remark1 != ''">
+                and remark_1 = #{remark1}
+            </if>
+            <if test="remark2 != null and remark2 != ''">
+                and remark_2 = #{remark2}
+            </if>
+        </where>
+    </select>
+
+    <!--添加方法-->
+    <insert id="insert" keyProperty="giftId" useGeneratedKeys="true">
+        insert into supplymarketing.gd_gift2good(remark_1, gift_id, gift_switch_putwarehouse, gift_swich_typrice,
+                                                 gift_approvaid)
+        values (null, #{giftId}, #{giftSwitchPutwarehouse}, #{giftSwichTyprice}, #{giftId});
+    </insert>
+
+    <insert id="insert1" parameterType="int">
+        insert into supplymarketing.gt_approval(approval_id,approval_status)
+        values (#{giftId},0)
+    </insert>
+
+
+    <!--通过主键修改数据-->
+    <update id="update">
+        update supplymarketing.gd_gift2good
+        <set>
+            <if test="giftSwitchPutwarehouse != null and giftSwitchPutwarehouse != ''">
+                gift_switch_putwarehouse = #{giftSwitchPutwarehouse},
+            </if>
+            <if test="giftSwichTyprice != null">
+                gift_swich_typrice = #{giftSwichTyprice},
+            </if>
+        </set>
+        where gift_id = #{giftId}
+    </update>
+
+    <!--通过主键删除-->
+    <delete id="deleteById">
+        delete
+        from supplymarketing.gd_gift2good
+        where gift_id = #{giftId}
+    </delete>
+
+
+    <!-- 分页查询 -->
+    <select id="selectByParams" resultType="com.javasm.salesupply.domain.vo.GdGift2goodVO">
+        select
+        g.gift_name,g.gift_classify,g.gift_brand,t.gift_swich_typrice,t.gift_switch_putwarehouse,t.remark_1,a.approval_status
+        from
+        supplymarketing.gt_gift g,supplymarketing.gd_gift2good t,supplymarketing.gt_approval a
+
+        <where>
+            t.gift_id=g.gift_id and t.remark_1 = a.approval_id
+            <!-- 商品名称查询  -->
+            <if test="giftName != null and giftName != ''">
+                and gift_name like concat('%',#{giftName},'%')
+            </if>
+            <!-- 商品分类查询  -->
+            <if test="giftClassify != null and giftClassify != ''">
+                and gift_classify like concat('%',#{giftClassify},'%')
+            </if>
+            <!-- 商品颜色查询  -->
+            <if test="giftColor != null and giftColor != ''">
+                and gift_color like concat('%',#{giftColor},'%')
+            </if>
+            <!-- 商品品牌查询  -->
+            <if test="giftBrand != null and giftBrand != ''">
+                and gift_brand like concat('%',#{giftBrand},'%')
+            </if>
+            <!-- 审核状态查询  -->
+            <if test="approvalStatus != null and approvalStatus != ''">
+                and approval_status like concat('%',#{approvalStatus},'%')
+            </if>
+        </where>
+        group by a.approval_id
+    </select>
+
+    <!-- 通过remark1作为主键查询 -->
+    <select id="selectOneByRemark1" resultType="com.javasm.salesupply.domain.vo.EditgdGift2goodVO">
+        select
+        g.*,t.*
+        from
+        supplymarketing.gt_gift g,supplymarketing.gd_gift2good t,supplymarketing.gt_approval a
+        <where>
+            t.gift_id=g.gift_id and t.gift_approvaid = a.approval_id
+            <!-- 商品名称查询  -->
+            <if test="remark1 != null and remark1 != ''">
+                and t.remark_1 like concat('%',#{remark1},'%')
+            </if>
+        </where>
+        group by a.approval_id
+    </select>
+
+
+</mapper>

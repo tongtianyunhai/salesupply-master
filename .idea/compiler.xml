@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="CompilerConfiguration">
+    <annotationProcessing>
+      <profile name="Maven default annotation processors profile" enabled="true">
+        <sourceOutputDir name="target/generated-sources/annotations" />
+        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
+        <outputRelativeToContentRoot value="true" />
+        <module name="aftersales" />
+        <module name="common" />
+        <module name="goods" />
+        <module name="sales" />
+        <module name="start" />
+        <module name="stock" />
+      </profile>
+    </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="aftersales" target="1.8" />
+      <module name="common" target="1.8" />
+      <module name="goods" target="1.8" />
+      <module name="sales" target="1.8" />
+      <module name="SaleSupply" target="1.8" />
+      <module name="start" target="1.8" />
+      <module name="stock" target="1.8" />
+    </bytecodeTargetLevel>
+  </component>
+</project>

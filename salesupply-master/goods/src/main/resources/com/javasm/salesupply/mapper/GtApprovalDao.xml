@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.javasm.salesupply.mapper.GtApprovalDao">
+
+    <resultMap id="BaseResultMap" type="com.javasm.salesupply.domain.entity.GtApproval">
+        <!--@Table gt_approval-->
+        <result property="approvalId" column="approval_id" jdbcType="INTEGER"/>
+        <result property="approvalUserId" column="approval_user_id" jdbcType="INTEGER"/>
+        <result property="approvalUserName" column="approval_user_name" jdbcType="VARCHAR"/>
+        <result property="approvalTime" column="approval_time" jdbcType="TIMESTAMP"/>
+        <result property="approvalStatus" column="approval_status" jdbcType="INTEGER"/>
+        <result property="approvalComment" column="approval_comment" jdbcType="VARCHAR"/>
+        <result property="createBy" column="create_by" jdbcType="INTEGER"/>
+        <result property="updateBy" column="update_by" jdbcType="VARCHAR"/>
+        <result property="createTime" column="create_time" jdbcType="TIMESTAMP"/>
+        <result property="updateTime" column="update_time" jdbcType="TIMESTAMP"/>
+        <result property="remark1" column="remark_1" jdbcType="VARCHAR"/>
+        <result property="remark2" column="remark_2" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <!--查询单个-->
+    <select id="queryById" resultMap="BaseResultMap">
+        select
+          approval_id, approval_user_id, approval_user_name, approval_time, approval_status, approval_comment, create_by, update_by, create_time, update_time, remark_1, remark_2
+        from supplymarketing.gt_approval
+        where approval_id = #{approvalId}
+    </select>
+
+    <!--查询指定行数据-->
+    <select id="queryAllByLimit" resultMap="BaseResultMap">
+        select
+          approval_id, approval_user_id, approval_user_name, approval_time, approval_status, approval_comment, create_by, update_by, create_time, update_time, remark_1, remark_2
+        from supplymarketing.gt_approval
+        limit #{offset}, #{limit}
+    </select>
+
+    <!--通过实体作为筛选条件查询-->
+    <select id="queryAll" resultMap="BaseResultMap">
+        select
+          approval_id, approval_user_id, approval_user_name, approval_time, approval_status, approval_comment, create_by, update_by, create_time, update_time, remark_1, remark_2
+        from supplymarketing.gt_approval
+        <where>
+            <if test="approvalId != null">
+                and approval_id = #{approvalId}
+            </if>
+            <if test="approvalUserId != null">
+                and approval_user_id = #{approvalUserId}
+            </if>
+            <if test="approvalUserName != null and approvalUserName != ''">
+                and approval_user_name = #{approvalUserName}
+            </if>
+            <if test="approvalTime != null">
+                and approval_time = #{approvalTime}
+            </if>
+            <if test="approvalStatus != null">
+                and approval_status = #{approvalStatus}
+            </if>
+            <if test="approvalComment != null and approvalComment != ''">
+                and approval_comment = #{approvalComment}
+            </if>
+            <if test="createBy != null">
+                and create_by = #{createBy}
+            </if>
+            <if test="updateBy != null and updateBy != ''">
+                and update_by = #{updateBy}
+            </if>
+            <if test="createTime != null">
+                and create_time = #{createTime}
+            </if>
+            <if test="updateTime != null">
+                and update_time = #{updateTime}
+            </if>
+            <if test="remark1 != null and remark1 != ''">
+                and remark_1 = #{remark1}
+            </if>
+            <if test="remark2 != null and remark2 != ''">
+                and remark_2 = #{remark2}
+            </if>
+        </where>
+    </select>
+
+    <!--新增所有列-->
+    <insert id="insert" keyProperty="approvalId" useGeneratedKeys="true">
+        insert into supplymarketing.gt_approval(approval_user_id, approval_user_name, approval_time, approval_status, approval_comment, create_by, update_by, create_time, update_time, remark_1, remark_2)
+        values (#{approvalUserId}, #{approvalUserName}, #{approvalTime}, #{approvalStatus}, #{approvalComment}, #{createBy}, #{updateBy}, #{createTime}, #{updateTime}, #{remark1}, #{remark2})
+    </insert>
+
+    <!--通过主键修改数据-->
+    <update id="update">
+        update supplymarketing.gt_approval
+        <set>
+            <if test="approvalUserId != null">
+                approval_user_id = #{approvalUserId},
+            </if>
+            <if test="approvalUserName != null and approvalUserName != ''">
+                approval_user_name = #{approvalUserName},
+            </if>
+            <if test="approvalTime != null">
+                approval_time = #{approvalTime},
+            </if>
+            <if test="approvalStatus != null">
+                approval_status = #{approvalStatus},
+            </if>
+            <if test="approvalComment != null and approvalComment != ''">
+                approval_comment = #{approvalComment},
+            </if>
+            <if test="createBy != null">
+                create_by = #{createBy},
+            </if>
+            <if test="updateBy != null and updateBy != ''">
+                update_by = #{updateBy},
+            </if>
+            <if test="createTime != null">
+                create_time = #{createTime},
+            </if>
+            <if test="updateTime != null">
+                update_time = #{updateTime},
+            </if>
+            <if test="remark1 != null and remark1 != ''">
+                remark_1 = #{remark1},
+            </if>
+            <if test="remark2 != null and remark2 != ''">
+                remark_2 = #{remark2},
+            </if>
+        </set>
+        where approval_id = #{approvalId}
+    </update>
+
+    <!--通过主键删除-->
+    <delete id="deleteById">
+        delete from supplymarketing.gt_approval where approval_id = #{approvalId}
+    </delete>
+
+</mapper>

@@ -1,0 +1,265 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.javasm.salesupply.mapper.GtGiftDao">
+
+    <resultMap id="BaseResultMap" type="com.javasm.salesupply.domain.entity.GtGift">
+        <!--@Table gt_gift-->
+        <result property="giftId" column="gift_id" jdbcType="INTEGER"/>
+        <result property="giftName" column="gift_name" jdbcType="VARCHAR"/>
+        <result property="giftModel" column="gift_model" jdbcType="VARCHAR"/>
+        <result property="giftClassify" column="gift_classify" jdbcType="VARCHAR"/>
+        <result property="giftLowstock" column="gift_lowstock" jdbcType="INTEGER"/>
+        <result property="giftPrice" column="gift_price" jdbcType="OTHER"/>
+        <result property="giftCost" column="gift_cost" jdbcType="OTHER"/>
+        <result property="giftStatus" column="gift_status" jdbcType="INTEGER"/>
+        <result property="giftBrand" column="gift_brand" jdbcType="VARCHAR"/>
+        <result property="giftColor" column="gift_color" jdbcType="VARCHAR"/>
+        <result property="createBy" column="create_by" jdbcType="INTEGER"/>
+        <result property="updateBy" column="update_by" jdbcType="VARCHAR"/>
+        <result property="createTime" column="create_time" jdbcType="TIMESTAMP"/>
+        <result property="updateTime" column="update_time" jdbcType="TIMESTAMP"/>
+        <result property="remark1" column="remark_1" jdbcType="VARCHAR"/>
+        <result property="remark2" column="remark_2" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <!--查询单个-->
+    <select id="queryById" resultMap="BaseResultMap">
+        select gift_id,
+               gift_name,
+               gift_model,
+               gift_classify,
+               gift_lowstock,
+               gift_price,
+               gift_cost,
+               gift_status,
+               gift_brand,
+               gift_color,
+               create_by,
+               update_by,
+               create_time,
+               update_time,
+               remark_1,
+               remark_2
+        from supplymarketing.gt_gift
+        where gift_id = #{giftId}
+    </select>
+
+    <!--查询指定行数据-->
+    <select id="queryAllByLimit" resultMap="BaseResultMap">
+        select gift_id,
+               gift_name,
+               gift_model,
+               gift_classify,
+               gift_lowstock,
+               gift_price,
+               gift_cost,
+               gift_status,
+               gift_brand,
+               gift_color,
+               create_by,
+               update_by,
+               create_time,
+               update_time,
+               remark_1,
+               remark_2
+        from supplymarketing.gt_gift
+        limit #{offset}, #{limit}
+    </select>
+
+    <!--通过实体作为筛选条件查询-->
+    <select id="queryAll" resultMap="BaseResultMap">
+        select
+        gift_id, gift_name, gift_model, gift_classify, gift_lowstock, gift_price, gift_cost, gift_status, gift_brand,
+        gift_color, create_by, update_by, create_time, update_time, remark_1, remark_2
+        from supplymarketing.gt_gift
+        <where>
+            <if test="giftId != null">
+                and gift_id = #{giftId}
+            </if>
+            <if test="giftName != null and giftName != ''">
+                and gift_name = #{giftName}
+            </if>
+            <if test="giftModel != null and giftModel != ''">
+                and gift_model = #{giftModel}
+            </if>
+            <if test="giftClassify != null and giftClassify != ''">
+                and gift_classify = #{giftClassify}
+            </if>
+            <if test="giftLowstock != null">
+                and gift_lowstock = #{giftLowstock}
+            </if>
+            <if test="giftPrice != null">
+                and gift_price = #{giftPrice}
+            </if>
+            <if test="giftCost != null">
+                and gift_cost = #{giftCost}
+            </if>
+            <if test="giftStatus != null">
+                and gift_status = #{giftStatus}
+            </if>
+            <if test="giftBrand != null and giftBrand != ''">
+                and gift_brand = #{giftBrand}
+            </if>
+            <if test="giftColor != null and giftColor != ''">
+                and gift_color = #{giftColor}
+            </if>
+            <if test="createBy != null">
+                and create_by = #{createBy}
+            </if>
+            <if test="updateBy != null and updateBy != ''">
+                and update_by = #{updateBy}
+            </if>
+            <if test="createTime != null">
+                and create_time = #{createTime}
+            </if>
+            <if test="updateTime != null">
+                and update_time = #{updateTime}
+            </if>
+            <if test="remark1 != null and remark1 != ''">
+                and remark_1 = #{remark1}
+            </if>
+            <if test="remark2 != null and remark2 != ''">
+                and remark_2 = #{remark2}
+            </if>
+        </where>
+    </select>
+
+    <!--新增所有列-->
+
+    <insert id="insert" keyProperty="giftId" useGeneratedKeys="true">
+        insert into supplymarketing.gt_gift(gift_name, gift_model, gift_classify, gift_lowstock, gift_price, gift_cost,
+                                            gift_status, gift_brand, gift_color, create_by, create_time, update_time)
+        values (#{giftName}, #{giftModel}, #{giftClassify}, #{giftLowstock}, #{giftPrice}, #{giftCost}, 1, #{giftBrand},
+                #{giftColor}, #{createBy}, now(), now())
+
+    </insert>
+
+
+    <!--通过主键修改数据-->
+    <update id="update">
+        update supplymarketing.gt_gift
+        <set>
+            <if test="giftName != null and giftName != ''">
+                gift_name = #{giftName},
+            </if>
+            <if test="giftModel != null and giftModel != ''">
+                gift_model = #{giftModel},
+            </if>
+            <if test="giftClassify != null and giftClassify != ''">
+                gift_classify = #{giftClassify},
+            </if>
+            <if test="giftLowstock != null">
+                gift_lowstock = #{giftLowstock},
+            </if>
+            <if test="giftPrice != null">
+                gift_price = #{giftPrice},
+            </if>
+            <if test="giftCost != null">
+                gift_cost = #{giftCost},
+            </if>
+            <if test="giftStatus != null">
+                gift_status = #{giftStatus},
+            </if>
+            <if test="giftBrand != null and giftBrand != ''">
+                gift_brand = #{giftBrand},
+            </if>
+            <if test="giftColor != null and giftColor != ''">
+                gift_color = #{giftColor},
+            </if>
+            <if test="createBy != null">
+                create_by = #{createBy},
+            </if>
+            <if test="updateBy != null and updateBy != ''">
+                update_by = #{updateBy},
+            </if>
+            <if test="createTime != null">
+                create_time = #{createTime},
+            </if>
+            <if test="updateTime != null">
+                update_time = #{updateTime},
+            </if>
+            <if test="remark1 != null and remark1 != ''">
+                remark_1 = #{remark1},
+            </if>
+            <if test="remark2 != null and remark2 != ''">
+                remark_2 = #{remark2},
+            </if>
+        </set>
+        where gift_id = #{giftId}
+    </update>
+
+    <!--通过主键删除-->
+    <delete id="deleteById">
+        delete
+        from supplymarketing.gt_gift
+        where gift_id = #{giftId}
+    </delete>
+
+    <!-- 多条件查询 -->
+    <select id="selectByParams" parameterType="com.javasm.salesupply.domain.criteria.GtGiftCriteria"
+            resultType="com.javasm.salesupply.domain.entity.GtGift">
+        select
+        gift_id, gift_name, gift_model, gift_classify, gift_lowstock, gift_price, gift_cost, gift_status, gift_brand,
+        gift_color, create_by, update_by, create_time, update_time, remark_1, remark_2
+        from
+        supplymarketing.gt_gift
+        <where>
+            gift_status = 1
+            <!-- 赠品型号查询  -->
+            <if test="giftModel != null and giftModel != ''">
+                and gift_model like concat('%',#{giftModel},'%')
+            </if>
+            <!-- 赠品品牌查询  -->
+            <if test="giftBrand != null and giftBrand != ''">
+                and gift_brand like concat('%',#{giftBrand},'%')
+            </if>
+            <!-- 赠品颜色查询  -->
+            <if test="giftColor != null and giftColor != ''">
+                and gift_color like concat('%',#{giftColor},'%')
+            </if>
+            <!-- 赠品名称查询  -->
+            <if test="giftName != null and giftName != ''">
+                and gift_name like concat('%',#{giftName},'%')
+            </if>
+            <!-- 赠品类型查询  -->
+            <if test="giftClassify != null and giftClassify != ''">
+                and gift_classify like concat('%',#{giftClassify},'%')
+            </if>
+        </where>
+    </select>
+    <select id="selectAllGdBrand" resultType="com.javasm.salesupply.domain.entity.GdBrand">
+        select brand_id,
+               brand_name
+        from supplymarketing.gd_brand;
+    </select>
+
+    <select id="selectAllGdClassify" resultType="com.javasm.salesupply.domain.entity.GdClassify">
+        select classify_id,
+               classify_name
+        from supplymarketing.gd_classify
+        where classify_isparent &gt; 0
+          and classify_isparent &lt; 3;
+    </select>
+
+    <select id="selectAllGiftColor" resultType="com.javasm.salesupply.domain.entity.GtGift">
+        select gift_color,
+               gift_id
+        from supplymarketing.gt_gift
+        GROUP BY gift_color
+    </select>
+
+    <select id="selectAllGtBrand" resultType="com.javasm.salesupply.domain.entity.GtGift">
+        select gift_brand,
+               gift_id
+        from supplymarketing.gt_gift
+        GROUP BY gift_brand
+    </select>
+
+    <select id="selectAllGtClassify" resultType="com.javasm.salesupply.domain.entity.GtGift">
+        select gift_classify,
+               gift_id
+        from supplymarketing.gt_gift
+        GROUP BY gift_classify
+    </select>
+
+</mapper>

@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.javasm.salesupply.mapper.GtAdjustMapper">
+
+    <select id="selectVO" resultType="com.javasm.salesupply.domain.vo.AdjustVO">
+        select *
+        from supplymarketing.gd_goods gg,
+        supplymarketing.gt_adjust ga,
+        supplymarketing.promote_approval pa
+        <where>
+            <if test="true">
+                gg.goods_id = ga.adjust_goodid
+                and ga.adjust_approvaid = pa.approval_id
+            </if>
+            <if test="approvalStatus != null and approvalStatus != ''">
+                and pa.approval_status = approvalStatus
+            </if>
+            <if test="goodsName != null and goodsName != ''">
+                and gg.goods_name like concat(concat('%',#{goodsName}),'%')
+            </if>
+            <if test="startTime != null and startTime != ''">
+                and ga.start_time &gt;= #{startTime,jdbcType=DATE}
+            </if>
+            <if test="endTime != null and endTime != ''">
+                and ga.end_time &lt;= #{endTime,jdbcType=DATE}
+            </if>
+
+        </where>
+
+    </select>
+</mapper>

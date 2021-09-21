@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.javasm.salesupply.mapper.GdBrandDao">
+
+    <resultMap id="BaseResultMap" type="com.javasm.salesupply.domain.entity.GdBrand">
+        <!--@Table gd_brand-->
+        <result property="brandId" column="brand_id" jdbcType="INTEGER"/>
+        <result property="brandName" column="brand_name" jdbcType="VARCHAR"/>
+        <result property="brandUrl" column="brand_url" jdbcType="VARCHAR"/>
+        <result property="brandDes" column="brand_des" jdbcType="VARCHAR"/>
+        <result property="createBy" column="create_by" jdbcType="INTEGER"/>
+        <result property="updateBy" column="update_by" jdbcType="VARCHAR"/>
+        <result property="createTime" column="create_time" jdbcType="TIMESTAMP"/>
+        <result property="updateTime" column="update_time" jdbcType="TIMESTAMP"/>
+        <result property="remark1" column="remark1" jdbcType="VARCHAR"/>
+        <result property="remark2" column="remark2" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <!--查询单个-->
+    <select id="queryById" resultMap="BaseResultMap">
+        select
+          brand_id, brand_name, brand_url, brand_des, create_by, update_by, create_time, update_time, remark1, remark2
+        from supplymarketing.gd_brand
+        where brand_id = #{brandId}
+    </select>
+
+    <!--查询指定行数据-->
+    <select id="queryAllByLimit" resultMap="BaseResultMap">
+        select
+          brand_id, brand_name, brand_url, brand_des, create_by, update_by, create_time, update_time, remark1, remark2
+        from supplymarketing.gd_brand
+    </select>
+
+    <!--通过实体作为筛选条件查询-->
+    <select id="queryAll" resultMap="BaseResultMap">
+        select
+          brand_id, brand_name, brand_url, brand_des, create_by, update_by, create_time, update_time, remark1, remark2
+        from supplymarketing.gd_brand
+        <where>
+            <if test="brandId != null">
+                and brand_id = #{brandId}
+            </if>
+            <if test="brandName != null and brandName != ''">
+                and brand_name = #{brandName}
+            </if>
+            <if test="brandUrl != null and brandUrl != ''">
+                and brand_url = #{brandUrl}
+            </if>
+            <if test="brandDes != null and brandDes != ''">
+                and brand_des = #{brandDes}
+            </if>
+            <if test="createBy != null">
+                and create_by = #{createBy}
+            </if>
+            <if test="updateBy != null and updateBy != ''">
+                and update_by = #{updateBy}
+            </if>
+            <if test="createTime != null">
+                and create_time = #{createTime}
+            </if>
+            <if test="updateTime != null">
+                and update_time = #{updateTime}
+            </if>
+            <if test="remark1 != null and remark1 != ''">
+                and remark1 = #{remark1}
+            </if>
+            <if test="remark2 != null and remark2 != ''">
+                and remark2 = #{remark2}
+            </if>
+        </where>
+    </select>
+
+    <!--新增所有列-->
+    <insert id="insert" keyProperty="brandId" useGeneratedKeys="true">
+        insert into supplymarketing.gd_brand(brand_name, brand_url, brand_des, create_by, update_by, create_time, update_time, remark1, remark2)
+        values (#{brandName}, #{brandUrl}, #{brandDes}, #{createBy}, #{updateBy}, #{createTime}, #{updateTime}, #{remark1}, #{remark2})
+    </insert>
+
+    <!--通过主键修改数据-->
+    <update id="update">
+        update supplymarketing.gd_brand
+        <set>
+            <if test="brandName != null and brandName != ''">
+                brand_name = #{brandName},
+            </if>
+            <if test="brandUrl != null and brandUrl != ''">
+                brand_url = #{brandUrl},
+            </if>
+            <if test="brandDes != null and brandDes != ''">
+                brand_des = #{brandDes},
+            </if>
+            <if test="createBy != null">
+                create_by = #{createBy},
+            </if>
+            <if test="updateBy != null and updateBy != ''">
+                update_by = #{updateBy},
+            </if>
+            <if test="createTime != null">
+                create_time = #{createTime},
+            </if>
+            <if test="updateTime != null">
+                update_time = #{updateTime},
+            </if>
+            <if test="remark1 != null and remark1 != ''">
+                remark1 = #{remark1},
+            </if>
+            <if test="remark2 != null and remark2 != ''">
+                remark2 = #{remark2},
+            </if>
+        </set>
+        where brand_id = #{brandId}
+    </update>
+
+    <!--通过主键删除-->
+    <delete id="deleteById">
+        delete from supplymarketing.gd_brand where brand_id = #{brandId}
+    </delete>
+
+</mapper>

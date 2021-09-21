@@ -1,0 +1,206 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.javasm.salesupply.mapper.GdProductDao">
+
+    <resultMap id="BaseResultMap" type="com.javasm.salesupply.domain.entity.GdProduct">
+        <!--@Table gd_product-->
+        <result property="productId" column="product_id" jdbcType="INTEGER"/>
+        <result property="productEncode" column="product_encode" jdbcType="VARCHAR"/>
+        <result property="productBrand" column="product_brand" jdbcType="VARCHAR"/>
+        <result property="productType" column="product_type" jdbcType="VARCHAR"/>
+        <result property="productBusinessmode" column="product_businessmode" jdbcType="VARCHAR"/>
+        <result property="productColor" column="product_color" jdbcType="VARCHAR"/>
+        <result property="productClassify" column="product_classify" jdbcType="VARCHAR"/>
+        <result property="createBy" column="create_by" jdbcType="INTEGER"/>
+        <result property="updateBy" column="update_by" jdbcType="VARCHAR"/>
+        <result property="createTime" column="create_time" jdbcType="TIMESTAMP"/>
+        <result property="updateTime" column="update_time" jdbcType="TIMESTAMP"/>
+        <result property="remark1" column="remark1" jdbcType="VARCHAR"/>
+        <result property="remark2" column="remark2" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <!--查询单个-->
+    <select id="queryById" resultMap="BaseResultMap">
+        select product_id,
+               product_encode,
+               product_brand,
+               product_type,
+               product_businessmode,
+               product_color,
+               product_classify,
+               create_by,
+               update_by,
+               create_time,
+               update_time,
+               remark1,
+               remark2
+        from supplymarketing.gd_product
+        where product_id = #{productId}
+    </select>
+
+    <!--查询指定行数据-->
+    <select id="queryAllByLimit" resultMap="BaseResultMap">
+        select product_id,
+               product_encode,
+               product_brand,
+               product_type,
+               product_businessmode,
+               product_color,
+               product_classify,
+               create_by,
+               update_by,
+               create_time,
+               update_time,
+               remark1,
+               remark2
+        from supplymarketing.gd_product
+        limit #{offset}, #{limit}
+    </select>
+
+    <!--通过实体作为筛选条件查询-->
+    <select id="queryAll" resultMap="BaseResultMap">
+        select
+        product_id, product_encode, product_brand, product_type, product_businessmode, product_color, product_classify,
+        create_by, update_by, create_time, update_time, remark1, remark2
+        from supplymarketing.gd_product
+        <where>
+            <if test="productId != null">
+                and product_id = #{productId}
+            </if>
+            <if test="productEncode != null and productEncode != ''">
+                and product_encode = #{productEncode}
+            </if>
+            <if test="productBrand != null and productBrand != ''">
+                and product_brand = #{productBrand}
+            </if>
+            <if test="productType != null and productType != ''">
+                and product_type = #{productType}
+            </if>
+            <if test="productBusinessmode != null and productBusinessmode != ''">
+                and product_businessmode = #{productBusinessmode}
+            </if>
+            <if test="productColor != null and productColor != ''">
+                and product_color = #{productColor}
+            </if>
+            <if test="productClassify != null and productClassify != ''">
+                and product_classify = #{productClassify}
+            </if>
+            <if test="createBy != null">
+                and create_by = #{createBy}
+            </if>
+            <if test="updateBy != null and updateBy != ''">
+                and update_by = #{updateBy}
+            </if>
+            <if test="createTime != null">
+                and create_time = #{createTime}
+            </if>
+            <if test="updateTime != null">
+                and update_time = #{updateTime}
+            </if>
+            <if test="remark1 != null and remark1 != ''">
+                and remark1 = #{remark1}
+            </if>
+            <if test="remark2 != null and remark2 != ''">
+                and remark2 = #{remark2}
+            </if>
+        </where>
+    </select>
+    <select id="findProductColorList" resultType="com.javasm.salesupply.domain.entity.GdProduct">
+        select *
+        from supplymarketing.gd_product
+        group by product_color;
+
+    </select>
+    <select id="selectVO" resultType="com.javasm.salesupply.domain.vo.ProductVO">
+        select gp.*, gc.classify_name, gb.brand_name
+        from supplymarketing.gd_brand gb,
+        supplymarketing.gd_classify gc,
+        supplymarketing.gd_product gp
+        <where>
+            <if test="true">
+                gb.brand_id = gp.product_brand
+                and gp.product_classify = gc.classify_id
+            </if>
+
+            <if test="productBrand != null and productBrand != ''">
+                and gp.product_brand like concat(concat('%',#{productBrand}),'%')
+            </if>
+            <if test="productEncode != null and productEncode != ''">
+                and gp.product_encode like concat(concat('%',#{productEncode}),'%')
+            </if>
+            <if test="productType != null and productType != ''">
+                and gp.product_type like concat(concat('%',#{productType}),'%')
+            </if>
+            <if test="productColor != null and productColor != ''">
+                and gp.product_color like concat(concat('%',#{productColor}),'%')
+            </if>
+            <if test="productClassify != null and productClassify != ''">
+                and gp.product_classify like concat(concat('%',#{productClassify}),'%')
+            </if>
+
+        </where>
+
+
+    </select>
+
+    <!--新增所有列-->
+    <insert id="insert" keyProperty="productId" useGeneratedKeys="true">
+        insert into supplymarketing.gd_product(product_encode, product_brand, product_type, product_businessmode,
+                                               product_color, product_classify, create_by, update_by, create_time,
+                                               update_time, remark1, remark2)
+        values (#{productEncode}, #{productBrand}, #{productType}, #{productBusinessmode}, #{productColor},
+                #{productClassify}, #{createBy}, #{updateBy}, #{createTime}, #{updateTime}, #{remark1}, #{remark2})
+    </insert>
+
+    <!--通过主键修改数据-->
+    <update id="update">
+        update supplymarketing.gd_product
+        <set>
+            <if test="productEncode != null and productEncode != ''">
+                product_encode = #{productEncode},
+            </if>
+            <if test="productBrand != null and productBrand != ''">
+                product_brand = #{productBrand},
+            </if>
+            <if test="productType != null and productType != ''">
+                product_type = #{productType},
+            </if>
+            <if test="productBusinessmode != null and productBusinessmode != ''">
+                product_businessmode = #{productBusinessmode},
+            </if>
+            <if test="productColor != null and productColor != ''">
+                product_color = #{productColor},
+            </if>
+            <if test="productClassify != null and productClassify != ''">
+                product_classify = #{productClassify},
+            </if>
+            <if test="createBy != null">
+                create_by = #{createBy},
+            </if>
+            <if test="updateBy != null and updateBy != ''">
+                update_by = #{updateBy},
+            </if>
+            <if test="createTime != null">
+                create_time = #{createTime},
+            </if>
+            <if test="updateTime != null">
+                update_time = #{updateTime},
+            </if>
+            <if test="remark1 != null and remark1 != ''">
+                remark1 = #{remark1},
+            </if>
+            <if test="remark2 != null and remark2 != ''">
+                remark2 = #{remark2},
+            </if>
+        </set>
+        where product_id = #{productId}
+    </update>
+
+    <!--通过主键删除-->
+    <delete id="deleteById">
+        delete
+        from supplymarketing.gd_product
+        where product_id = #{productId}
+    </delete>
+
+</mapper>

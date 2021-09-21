@@ -1,0 +1,305 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.javasm.salesupply.mapper.GtPromoteDao">
+
+    <resultMap id="BaseResultMap" type="com.javasm.salesupply.domain.entity.GtPromote">
+        <!--@Table gt_promote-->
+        <result property="promoteId" column="promote_id" jdbcType="INTEGER"/>
+        <result property="promoteStartime" column="promote_startime" jdbcType="TIMESTAMP"/>
+        <result property="promoteEndtime" column="promote_endtime" jdbcType="TIMESTAMP"/>
+        <result property="promoteName" column="promote_name" jdbcType="VARCHAR"/>
+        <result property="promoteType" column="promote_type" jdbcType="VARCHAR"/>
+        <result property="promoteGoodid" column="promote_goodid" jdbcType="INTEGER"/>
+        <result property="promoteMkAdjustpricetype" column="promote_mk_adjustpricetype" jdbcType="INTEGER"/>
+        <result property="promoteMkAdjustnum" column="promote_mk_adjustnum" jdbcType="OTHER"/>
+        <result property="promoteMkProprice" column="promote_mk_proprice" jdbcType="OTHER"/>
+        <result property="promoteShopAdjustpricetype" column="promote_shop_adjustpricetype" jdbcType="INTEGER"/>
+        <result property="promoteShopAdjustnum" column="promote_shop_adjustnum" jdbcType="OTHER"/>
+        <result property="promoteShopProprice" column="promote_shop_proprice" jdbcType="OTHER"/>
+        <result property="promotePricestartime" column="promote_pricestartime" jdbcType="OTHER"/>
+        <result property="promotePricendtime" column="promote_pricendtime" jdbcType="OTHER"/>
+        <result property="promoteReason" column="promote_reason" jdbcType="VARCHAR"/>
+        <result property="promoteFile" column="promote_file" jdbcType="VARCHAR"/>
+        <result property="promoteComment" column="promote_comment" jdbcType="VARCHAR"/>
+        <result property="promoteApprovaid" column="promote_approvaid" jdbcType="INTEGER"/>
+        <result property="createBy" column="create_by" jdbcType="INTEGER"/>
+        <result property="updateBy" column="update_by" jdbcType="VARCHAR"/>
+        <result property="createTime" column="create_time" jdbcType="TIMESTAMP"/>
+        <result property="updateTime" column="update_time" jdbcType="TIMESTAMP"/>
+        <result property="remark1" column="remark_1" jdbcType="VARCHAR"/>
+        <result property="remark2" column="remark_2" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <!--查询单个-->
+    <select id="queryById" resultMap="BaseResultMap">
+        select promote_id,
+               promote_startime,
+               promote_endtime,
+               promote_name,
+               promote_type,
+               promote_goodid,
+               promote_mk_adjustpricetype,
+               promote_mk_adjustnum,
+               promote_mk_proprice,
+               promote_shop_adjustpricetype,
+               promote_shop_adjustnum,
+               promote_shop_proprice,
+               promote_pricestartime,
+               promote_pricendtime,
+               promote_reason,
+               promote_file,
+               promote_comment,
+               promote_approvaid,
+               create_by,
+               update_by,
+               create_time,
+               update_time,
+               remark_1,
+               remark_2
+        from supplymarketing.gt_promote
+        where promote_id = #{promoteId}
+    </select>
+
+    <!--查询指定行数据-->
+    <select id="queryAllByLimit" resultMap="BaseResultMap">
+        select promote_id,
+               promote_startime,
+               promote_endtime,
+               promote_name,
+               promote_type,
+               promote_goodid,
+               promote_mk_adjustpricetype,
+               promote_mk_adjustnum,
+               promote_mk_proprice,
+               promote_shop_adjustpricetype,
+               promote_shop_adjustnum,
+               promote_shop_proprice,
+               promote_pricestartime,
+               promote_pricendtime,
+               promote_reason,
+               promote_file,
+               promote_comment,
+               promote_approvaid,
+               create_by,
+               update_by,
+               create_time,
+               update_time,
+               remark_1,
+               remark_2
+        from supplymarketing.gt_promote
+        limit #{offset}, #{limit}
+    </select>
+
+    <!--通过实体作为筛选条件查询-->
+    <select id="queryAll" resultMap="BaseResultMap">
+        select
+        promote_id, promote_startime, promote_endtime, promote_name, promote_type, promote_goodid,
+        promote_mk_adjustpricetype, promote_mk_adjustnum, promote_mk_proprice, promote_shop_adjustpricetype,
+        promote_shop_adjustnum, promote_shop_proprice, promote_pricestartime, promote_pricendtime, promote_reason,
+        promote_file, promote_comment, promote_approvaid, create_by, update_by, create_time, update_time, remark_1,
+        remark_2
+        from supplymarketing.gt_promote
+        <where>
+            <if test="promoteId != null">
+                and promote_id = #{promoteId}
+            </if>
+            <if test="promoteStartime != null">
+                and promote_startime = #{promoteStartime}
+            </if>
+            <if test="promoteEndtime != null">
+                and promote_endtime = #{promoteEndtime}
+            </if>
+            <if test="promoteName != null and promoteName != ''">
+                and promote_name = #{promoteName}
+            </if>
+            <if test="promoteType != null and promoteType != ''">
+                and promote_type = #{promoteType}
+            </if>
+            <if test="promoteGoodid != null">
+                and promote_goodid = #{promoteGoodid}
+            </if>
+            <if test="promoteMkAdjustpricetype != null">
+                and promote_mk_adjustpricetype = #{promoteMkAdjustpricetype}
+            </if>
+            <if test="promoteMkAdjustnum != null">
+                and promote_mk_adjustnum = #{promoteMkAdjustnum}
+            </if>
+            <if test="promoteMkProprice != null">
+                and promote_mk_proprice = #{promoteMkProprice}
+            </if>
+            <if test="promoteShopAdjustpricetype != null">
+                and promote_shop_adjustpricetype = #{promoteShopAdjustpricetype}
+            </if>
+            <if test="promoteShopAdjustnum != null">
+                and promote_shop_adjustnum = #{promoteShopAdjustnum}
+            </if>
+            <if test="promoteShopProprice != null">
+                and promote_shop_proprice = #{promoteShopProprice}
+            </if>
+            <if test="promotePricestartime != null">
+                and promote_pricestartime = #{promotePricestartime}
+            </if>
+            <if test="promotePricendtime != null">
+                and promote_pricendtime = #{promotePricendtime}
+            </if>
+            <if test="promoteReason != null and promoteReason != ''">
+                and promote_reason = #{promoteReason}
+            </if>
+            <if test="promoteFile != null and promoteFile != ''">
+                and promote_file = #{promoteFile}
+            </if>
+            <if test="promoteComment != null and promoteComment != ''">
+                and promote_comment = #{promoteComment}
+            </if>
+            <if test="promoteApprovaid != null">
+                and promote_approvaid = #{promoteApprovaid}
+            </if>
+            <if test="createBy != null">
+                and create_by = #{createBy}
+            </if>
+            <if test="updateBy != null and updateBy != ''">
+                and update_by = #{updateBy}
+            </if>
+            <if test="createTime != null">
+                and create_time = #{createTime}
+            </if>
+            <if test="updateTime != null">
+                and update_time = #{updateTime}
+            </if>
+            <if test="remark1 != null and remark1 != ''">
+                and remark_1 = #{remark1}
+            </if>
+            <if test="remark2 != null and remark2 != ''">
+                and remark_2 = #{remark2}
+            </if>
+        </where>
+    </select>
+
+    <!--  多条件模糊查询  -->
+    <select id="selectByParams" resultType="com.javasm.salesupply.domain.vo.GdPromoteVO">
+        select
+        p.promote_id,g.goods_id,p.promote_name,p.promote_startime,p.promote_shop_proprice,p.promote_pricestartime,a.approval_status
+        from
+        supplymarketing.gt_promote p,supplymarketing.promote_approval a,supplymarketing.gd_goods g
+        <where>
+            p.promote_goodid = g.goods_id and p.promote_approvaid = a.approval_id
+            <!-- 商品名称查询  -->
+            <if test="goodsName != null and goodsName != ''">
+                and goods_name like concat('%',#{goodsName},'%')
+            </if>
+            <!-- 审核状态  -->
+            <if test="approvalStatus != null and approvalStatus != ''">
+                and approval_status like concat('%',#{approvalStatus},'%')
+            </if>
+            <!-- 活动开始时间  -->
+            <if test="promoteStartime != null">
+                and promote_startime &gt;= #{promoteStartime,jdbcType=DATE}
+            </if>
+            <!-- 希望价格生效时间  -->
+            <if test="promotePricestartime != null">
+                and promote_pricestartime &gt;= #{promotePricestartime,jdbcType=DATE}
+            </if>
+            group by p.promote_id
+        </where>
+    </select>
+
+    <!--新增所有列-->
+    <insert id="insert" keyProperty="promoteId" useGeneratedKeys="true">
+        insert into supplymarketing.gt_promote(promote_startime, promote_endtime, promote_name, promote_type,
+                                               promote_goodid, promote_mk_adjustpricetype, promote_mk_adjustnum,
+                                               promote_mk_proprice, promote_shop_adjustpricetype,
+                                               promote_shop_adjustnum, promote_shop_proprice, promote_pricestartime,
+                                               promote_pricendtime, promote_reason, promote_file, promote_comment,
+                                               promote_approvaid, remark_1)
+        values (#{promoteStartime}, #{promoteEndtime}, #{promoteName}, #{promoteType}, #{goodsId},
+                #{promoteMkAdjustpricetype}, #{promoteMkAdjustnum}, #{promoteMkProprice}, #{promoteShopAdjustpricetype},
+                #{promoteShopAdjustnum}, #{promoteShopProprice}, #{promotePricestartime}, #{promotePricendtime},
+                #{promoteReason}, #{promoteFile}, #{promoteComment}, #{promoteApprovaid}, #{remark1})
+    </insert>
+
+
+    <!--通过主键修改数据-->
+    <update id="update">
+        update supplymarketing.gt_promote
+        <set>
+            <if test="promoteStartime != null">
+                promote_startime = #{promoteStartime},
+            </if>
+            <if test="promoteEndtime != null">
+                promote_endtime = #{promoteEndtime},
+            </if>
+            <if test="promoteName != null and promoteName != ''">
+                promote_name = #{promoteName},
+            </if>
+            <if test="promoteType != null and promoteType != ''">
+                promote_type = #{promoteType},
+            </if>
+            <if test="goodsId != null">
+                promote_goodid = #{goodsId},
+            </if>
+            <if test="promoteMkAdjustpricetype != null">
+                promote_mk_adjustpricetype = #{promoteMkAdjustpricetype},
+            </if>
+            <if test="promoteMkAdjustnum != null">
+                promote_mk_adjustnum = #{promoteMkAdjustnum},
+            </if>
+            <if test="promoteMkProprice != null">
+                promote_mk_proprice = #{promoteMkProprice},
+            </if>
+            <if test="promoteShopAdjustpricetype != null">
+                promote_shop_adjustpricetype = #{promoteShopAdjustpricetype},
+            </if>
+            <if test="promoteShopAdjustnum != null">
+                promote_shop_adjustnum = #{promoteShopAdjustnum},
+            </if>
+            <if test="promoteShopProprice != null">
+                promote_shop_proprice = #{promoteShopProprice},
+            </if>
+
+            <if test="promotePricestartime != null">
+                promote_pricestartime = #{promotePricestartime},
+            </if>
+            <if test="promotePricendtime != null">
+                promote_pricendtime = #{promotePricendtime},
+            </if>
+
+            <if test="promoteReason != null and promoteReason != ''">
+                promote_reason = #{promoteReason},
+            </if>
+            <if test="promoteFile != null and promoteFile != ''">
+                promote_file = #{promoteFile},
+            </if>
+            <if test="promoteComment != null and promoteComment != ''">
+                promote_comment = #{promoteComment},
+            </if>
+            <if test="promoteApprovaid != null">
+                promote_approvaid = #{promoteApprovaid},
+            </if>
+            <if test="remark1 != null and remark1 != ''">
+                remark_1 = #{remark1},
+            </if>
+        </set>
+        where promote_id = #{promoteId}
+    </update>
+
+    <!--通过主键删除-->
+    <delete id="deleteById">
+        delete
+        from supplymarketing.gt_promote
+        where promote_id = #{promoteId}
+    </delete>
+
+    <!--  通过促销主键查询VO信息  -->
+    <select id="checkPromotes" parameterType="java.lang.Integer"
+            resultType="com.javasm.salesupply.domain.vo.PromoteDetailVO">
+        select p.*,g.goods_id,g.goods_name,g.goods_lowstock,g.goods_marketprice,g.goods_shoprice
+        from supplymarketing.gt_promote p,supplymarketing.gd_goods g
+        where p.promote_goodid = g.goods_id
+        <if test="_parameter != null">
+            and p.promote_id = #{_parameter,jdbcType=INTEGER}
+        </if>
+
+    </select>
+
+
+</mapper>
